@@ -1,0 +1,53 @@
+TODO
+1. ASSETS
+    [x]Buascar personaje
+    [x]Buscar mapa
+    [ ]Crear um mapa de prueba
+    [ ]Crear 20 niveles
+        []3 niveles faciles
+        []4 VAGONES INTERMEDIO
+        []4 VAGONES ESPECIALES
+        []4 VAGONES DIFICILES
+        []5 FINALES
+    [ ]OBJETOS
+
+2. MECANICAS BASICAS
+    [x] COLISIONES EN ---> PROGRAMA
+    [x] MOVIMINETO JUGADOR
+    [ ]ATACAR
+    [ ]ANIMACIONES DEL JUGADOR
+    [x]MOVIMINETO DEL mapa
+    [ ]VIDA--> 3 CORAZONES
+    [ ]OBJETOS --> más daño, más vida, más velocidad ... 
+    [ ]CAMBIO DE NIVEL --> PUERTAS
+        [ ]NIVELES ALEATORIOS (por ahora)
+        [ ] VOLVER AL NIVEL 1--> SI TE MUERES
+    [ ]ENEMIGOS
+         [ ]ANIMACIONES DE LOS ENEMIGOS
+
+3. INTEGRACION IA
+     [ ]AGREGAR LAS FUNCIONES DE LA CAMARA
+     [ ]CARGAR EL MODELO DE IA
+     [ ]CREAR LIASTAS CON DISTINTAS EMOCIONES Y IR GURADANDOLAS ---> (ej. emociones = { enfado: 3, tristreza: 2, ...
+    })
+     [ ]DECIDIR EL SIGUIENTE NIVEL A PARTIR DE LAS EMEOCIONES --> (ej. if (emociones.enfado > 5) nivel = nivelFacil3)
+     [ ]DECIDIR EL FINAL A PARTIR DE LAS EMOCIONES --> (ej. switch (emocion mas destacada) 
+                                                            case: 'enfado'
+                                                            FINAL = FinalEnfado
+                                                            brake
+                                                            case: 'tristreza'
+                                                            FINAL = FinalTriste
+                                                            brake
+                                                            case: 'Neutro'
+                                                            FINAL = FinalNeutro
+                                                            brake)
+     [ ]
+
+4.PAGINA WEB
+     [ ] CENTRAR TODO
+     [ ] LINK A UN FORMS DE GOOGLE--> FEED BACK
+     [ ] PUBLICAR CON NETLIFY Y GTIHUB
+     [ ] ARREGLAR BUGS APARTIR DEL FEED BACK
+
+                                                        
+                                                    
