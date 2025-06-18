@@ -8,10 +8,17 @@
   vertical-align: baseline;
 }
 body {
+  font-family: Arial, Helvetica, sans-serif;
   background: black;
   margin: 0;
 }
-
+h1 {
+  color: white;
+  text-align: center;
+  margin: 20px 0;
+  font-size: 3rem;
+  font-weight: bold;
+}
 canvas {
   width: 1024px;
   height: 576px;
@@ -19,21 +26,62 @@ canvas {
 }
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 
+}
+a{
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  margin-top: 20px;
+  transition: 1s;
+}
+a:hover {
+  transition: 1s;
+  color: #ccc;
+  font-weight: bold;
+}
+iframe {
+  display: none;
+}
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 2rem;
+  margin: 20px 2px;
+  cursor: pointer;
+  border-radius: 20px;
+    transition: 0.3s ease;
+    
+}
+button:hover {
+  background-color: #2d6830; /* Darker green on hover */
+  color: white;
+  transition: 0.3s ease;
+  font-weight: bold;
 }
 </style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Document</title>
+  <title></title>
 </head>
 <body>
   <div class="container">
+    <h1 style="color: white;">Emotion Express - Beta 1.0</h1>
     <canvas style="image-rendering: pixelated" ></canvas>
+    <!-- <button onclick="toggleForm();">FeedBack</button> -->
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd1uPsPX4jqmn_lffquRBR2se6hdL8-3Tg-YpFbjVfpFMDvwg/viewform?embedded=true" width="1024" height="3600" frameborder="0" marginheight="0" marginwidth="0">S&#39;està carregant…</iframe>
   </div>
+
 
 
 
@@ -47,6 +95,17 @@ canvas {
 
   <script src="./js/index.js"></script>
   <script src="./js/eventListeners.js"></script>
+
+  <script>
+    const forms = document.querySelector('iframe');
+    function toggleForm() {
+      if (forms.style.display === 'none') {
+        forms.style.display = 'block';
+      } else {
+        forms.style.display = 'none';
+      }
+    }
+  </script>
 
 </body>
 </html>
