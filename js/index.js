@@ -2,7 +2,7 @@ const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 const dpr = window.devicePixelRatio || 1
 
-const MAPA_SCALE= dpr + 3;
+const MAPA_SCALE= dpr + 2.5 // Adjust this value to zoom in/out;
 const MAP_WIDTH = 25 * 16; // 25 COLUMNS AND 16 PX
 const MAP_HEIGHT = 35 * 16; // 16 ROWS AND 16 PX
 
@@ -106,13 +106,26 @@ const renderStaticLayers = async () => {
 
 // Change xy coordinates to move playerd's default position
 const player = new Player({
-  x: 180,
+  x: 150,
   y: 500,
   size: {
     x: 15,
     y: 31,
   },
 })
+
+const monsters 
+= [
+  new Monster({
+    x: 200,
+    y: 500,
+    size: {
+      x: 15,
+      y: 31,
+    },
+    imgSrc: 'MonstersAssetes/stormhead/',
+  }),
+]
 
 const keys = {
   w: {
@@ -140,9 +153,11 @@ function animate(backgroundCanvas) {
   // Update player position
   player.handleInput(keys)
   player.update(deltaTime, collisionBlocks)
-  
+
+
   const horizontalScrollDistance = Math.min(Math.max(0, player.center.x - VIEWPORT_CENTER_X), MAX_SCROLL_X)
   const verticalScrollDistance = Math.min(Math.max(0, player.center.y - VIEWPORT_CENTER_Y), MAX_SCROLL_Y)
+  
   // Render scene
   c.save()
   c.scale(MAPA_SCALE, MAPA_SCALE)
@@ -150,8 +165,13 @@ function animate(backgroundCanvas) {
   c.fillStyle = 'rgba(99, 0, 0, 0.5)'
   c.fillRect(0, 0, canvas.width, canvas.height)
   c.drawImage(backgroundCanvas, 0, 0)
-  console.log(horizontalScrollDistance)
   player.draw(c)
+  for (let i = monsters.length - 1; i >= 0; i--) {
+    const monster = monsters[i]
+    monster.update(deltaTime, collisionBlocks)
+    monster.draw(c)
+
+  }
   c.restore()
 
   requestAnimationFrame(() => animate(backgroundCanvas))

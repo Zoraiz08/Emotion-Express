@@ -1,8 +1,5 @@
-const X_VELOCITY = 170
-const Y_VELOCITY = 170
-
-class Player {
-  constructor({ x, y, size, velocity = { x: 0, y: 0 } }) {
+class Monster {
+  constructor({ x, y, size, velocity = { x: 0, y: 0 }, imgSrc }) {
     this.x = x
     this.y = y
     this.width = size.x
@@ -18,22 +15,23 @@ class Player {
       // Image loaded, you can perform any additional setup here if needed
       this.loaded = true
     }
-    this.img.src = 'playerAssets/IDLE/idle_down.png'
+    this.img.src =`${imgSrc}idle.png`
     this.curretFrame = 0
     this.elapsedTime = 0
+    this.animationframes = {
+      idle: 9,
+      run: 10,
+      attack: 21,
+      hit: 2,
+      death: 8,
+    }
+    this.curretAnimation = this.animationframes.idle
     this.sprites = {
-      idle: {
-        down: 'playerAssets/IDLE/idle_down.png',
-        left: 'playerAssets/IDLE/idle_left.png',
-        right: 'playerAssets/IDLE/idle_right.png',
-        up: 'playerAssets/IDLE/idle_up.png',
-      },
-      run: {
-        down: 'playerAssets/RUN/run_down.png',
-        left: 'playerAssets/RUN/run_left.png',
-        right: 'playerAssets/RUN/run_right.png',
-        up: 'playerAssets/RUN/run_up.png',
-      },
+      idle: `${imgSrc}idle.png`,
+      run: `${imgSrc}run.png`,
+      attack: `${imgSrc}attack.png`,
+      hit: `${imgSrc}hit.png`,
+      death: `${imgSrc}death.png`,
     }
     this.lastDirection = 'down' 
 
@@ -41,26 +39,24 @@ class Player {
   draw(c) {
     if (!this.loaded) return
     // Red square debug code
-    // c.fillStyle = 'rgba(0, 0, 255, 0.5)'
-    // c.fillRect(this.x, this.y, this.width, this.height)
+    c.fillStyle = 'rgba(0, 0, 255, 0.5)'
+    c.fillRect(this.x, this.y, this.width, this.height)
     // Draw player image
     const cropbox = {
       x: 0, 
       y: 0,
-      width: 96, // img_width/8
-      height: 80,
+      width: 119, // img_width/8
+      height: 124,
     }
-
-
     c.drawImage(this.img,
-      cropbox.width * this.curretFrame,
-      cropbox.y,
+      cropbox.x,
+      cropbox.height * this.curretFrame,
       cropbox.width,
       cropbox.height,
       this.x - 38,
-      this.y- 23, 
-      this.width + 80,
-      this.height + 45
+      this.y- 69, 
+      this.width + 87,
+      this.height + 70
       //No se pero esto es lo que funciona para que se vea bien el personaje
     )
   }
@@ -72,7 +68,7 @@ class Player {
     this.elapsedTime += deltaTime
     if (this.elapsedTime > intervalTime){ // Control frame rate, adjust
     // 0 - 7
-    this.curretFrame = (this.curretFrame + 1) % 8 // si divideixes per el modul un nombre més petit et torna el mateix nombre
+    this.curretFrame = (this.curretFrame + 1) % this.curretAnimation // si divideixes per el modul un nombre més petit et torna el mateix nombre
     this.elapsedTime -= intervalTime
     
   }
@@ -97,48 +93,6 @@ class Player {
   updateVerticalPosition(deltaTime) {
     this.y += this.velocity.y * deltaTime
   }
-
-  handleInput(keys) {
-    this.velocity.x = 0
-    this.velocity.y = 0
-
-    if (keys.d.pressed) {
-      this.velocity.x = X_VELOCITY
-      this.img.src = this.sprites.run.right
-      this.lastDirection = 'right'
-    } else if (keys.a.pressed) {
-      this.velocity.x = -X_VELOCITY
-      this.img.src = this.sprites.run.left
-      this.lastDirection = 'left'
-    } else if (keys.w.pressed) {
-      this.velocity.y = -Y_VELOCITY
-      this.img.src = this.sprites.run.up
-      this.lastDirection = 'up'
-    } else if (keys.s.pressed) {
-      this.velocity.y = Y_VELOCITY
-      this.img.src = this.sprites.run.down
-      this.lastDirection = 'down'
-    } else {
-      this.velocity.x = 0
-      this.velocity.y = 0
-      switch (this.lastDirection) {
-      case 'right':
-        this.img.src = this.sprites.idle.right;
-        break;
-      case 'left':
-        this.img.src = this.sprites.idle.left;
-        break;
-      case 'up':
-        this.img.src = this.sprites.idle.up;
-        break;
-      case 'down':
-      default:
-        this.img.src = this.sprites.idle.down;
-        break;
-}
-      }
-    }
-
 
   checkForHorizontalCollisions(collisionBlocks) {
     const buffer = 0.0001
