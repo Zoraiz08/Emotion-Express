@@ -12,7 +12,11 @@ window.addEventListener('keydown', (event) => {
     case 'd':
       keys.d.pressed = true
       break
-  }
+    case ' ':
+      event.preventDefault() // Prevent scrolling
+      player.attack() 
+      break
+    }
 })
 
 window.addEventListener('keyup', (event) => {
@@ -29,7 +33,7 @@ window.addEventListener('keyup', (event) => {
     case 'd':
       keys.d.pressed = false
       break
-  }
+    }
 })
 
 // On return to game's tab, ensure delta time is reset

@@ -116,15 +116,30 @@ const player = new Player({
 
 const monsters 
 = [
-  new Monster({
+  new stormhead({
     x: 200,
     y: 500,
     size: {
       x: 15,
       y: 31,
     },
-    imgSrc: 'MonstersAssetes/stormhead/',
   }),
+  new skeleton({
+    x: 150,
+    y: 500,
+    size: {
+      x: 23,
+      y: 31,
+    },
+  }),
+  new bot({
+    x: 100,
+    y: 500,
+    size: {
+      x: 20,
+      y: 31,
+    },
+  }), 
 ]
 
 const keys = {
@@ -166,6 +181,7 @@ function animate(backgroundCanvas) {
   c.fillRect(0, 0, canvas.width, canvas.height)
   c.drawImage(backgroundCanvas, 0, 0)
   player.draw(c)
+
   for (let i = monsters.length - 1; i >= 0; i--) {
     const monster = monsters[i]
     monster.update(deltaTime, collisionBlocks)
