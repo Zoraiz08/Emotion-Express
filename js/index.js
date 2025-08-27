@@ -130,7 +130,7 @@ const monsters
     x: 150,
     y: 500,
     size: {
-      x: 23,
+      x: 20,
       y: 31,
     },
   }),

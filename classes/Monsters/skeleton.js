@@ -26,14 +26,6 @@ class skeleton {
       death: 15,
       react: 4,
     }
-    this.animationCropbox = {
-        idle: { x: 0, y: 0, width: 24, height: 32 },
-        run: { x: 0, y: 0, width: 22, height: 32 },
-        attack: { x: 0, y: 0, width: 43, height: 32 },
-        hit: { x: 0, y: 0, width: 30, height: 32 },
-        death: { x: 0, y: 0, width: 44, height: 32 },
-        react: { x: 0, y: 0, width: 22, height: 32 },
-    }
 
 
     this.curretAnimation = this.animationframes.idle
@@ -58,7 +50,12 @@ class skeleton {
       c.fillRect(this.x, this.y, this.width, this.height)
     }
     // Draw player image
-    let cropbox = this.animationCropbox.run
+    let cropbox = {
+      x: 0, 
+      y: 0,
+      width: 43, // img_width/8
+      height: 37,
+    }
 
     c.drawImage(this.img,
       cropbox.width * this.curretFrame,
@@ -66,9 +63,9 @@ class skeleton {
       cropbox.width,
       cropbox.height,
       this.x,
-      this.y, 
-      this.width,
-      this.height 
+      this.y - 6, 
+      this.width + 24,
+      this.height + 6 
       //No se pero esto es lo que funciona para que se vea bien el personaje
     )
   }
@@ -123,7 +120,6 @@ class skeleton {
       this.velocity.y = normalizedY * radius // Speed factor
 
       this.curretAnimation = this.animationframes.run
-    //   cropbox = this.animationCropbox.run
       this.img.src = this.sprites.run
 
     }
