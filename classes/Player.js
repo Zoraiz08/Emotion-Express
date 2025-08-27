@@ -43,6 +43,7 @@ class Player {
     }
     this.lastDirection = 'down' 
     this.isAttacking = false
+    this.HitBox = false
 
   }
 
@@ -57,6 +58,8 @@ class Player {
       width: 96,
       height: 80,
     }
+    c.fillStyle = 'rgba(0, 174, 255, 0.5)'
+    if (this.HitBox) c.fillRect(this.x, this.y, this.width, this.height)
 
     c.drawImage(
       this.img,
@@ -64,14 +67,14 @@ class Player {
       cropbox.y,
       cropbox.width,
       cropbox.height,
-      this.x - 38,
+      this.x - 40,
       this.y - 23,
       this.width + 80,
       this.height + 45
     )
 
     // Debug de la hitbox de ataque
-    if (this.isAttacking && this.attackHitBox) {
+    if (this.isAttacking && this.attackHitBox && this.HitBox) {
       c.fillStyle = 'rgba(115, 255, 218, 0.5)'
       c.fillRect(
         this.attackHitBox.x,
@@ -92,7 +95,7 @@ class Player {
     if (this.isAttacking) {
       // Avanza frames de ataque y termina cuando llegue al último
       // Ajusta ATTACK_FRAMES al nº real de frames de tu spritesheet de ataque
-      const ATTACK_FRAMES = 5
+      const ATTACK_FRAMES = 3
 
       if (this.elapsedTime > intervalTime) {
         this.curretFrame += 1
@@ -222,6 +225,9 @@ class Player {
     console.log(this.attackHitBox)
   }
 
+  hitboxVisible() {
+    this.HitBox = !this.HitBox;
+  }
 
  
   checkForHorizontalCollisions(collisionBlocks) {

@@ -2,7 +2,9 @@ const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 const dpr = window.devicePixelRatio || 1
 
-const MAPA_SCALE= dpr + 2.5 // Adjust this value to zoom in/out;
+ let zoom = 2.5
+
+const MAPA_SCALE= dpr + zoom // Adjust this value to zoom in/out;
 const MAP_WIDTH = 25 * 16; // 25 COLUMNS AND 16 PX
 const MAP_HEIGHT = 35 * 16; // 16 ROWS AND 16 PX
 
@@ -103,16 +105,16 @@ const renderStaticLayers = async () => {
 }
 // END - Tile setup
 
-
-// Change xy coordinates to move playerd's default position
-const player = new Player({
-  x: 150,
-  y: 500,
+ const door = new Door({
+  x: 192,
+  y: 0,
   size: {
-    x: 15,
-    y: 31,
+    x: 16,
+    y: 16,
   },
 })
+
+// Change xy coordinates to move plaayerd's default position
 
 const monsters 
 = [
@@ -139,9 +141,17 @@ const monsters
       x: 20,
       y: 31,
     },
-  }), 
-]
+  }), ]
 
+
+const player = new Player({
+  x: 150,
+  y: 500,
+  size: {
+    x: 15,
+    y: 31,
+  },
+})
 const keys = {
   w: {
     pressed: false,
@@ -180,14 +190,20 @@ function animate(backgroundCanvas) {
   c.fillStyle = 'rgba(99, 0, 0, 0.5)'
   c.fillRect(0, 0, canvas.width, canvas.height)
   c.drawImage(backgroundCanvas, 0, 0)
-  player.draw(c)
 
+  // Draw door
+  door.update(deltaTime)
+  door.draw(c)
+
+  // Primero renderiza los monstruos
   for (let i = monsters.length - 1; i >= 0; i--) {
     const monster = monsters[i]
     monster.update(deltaTime, collisionBlocks)
     monster.draw(c)
-
   }
+
+  // Luego renderiza el jugador encima
+  player.draw(c)
   c.restore()
 
   requestAnimationFrame(() => animate(backgroundCanvas))

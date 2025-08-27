@@ -16,7 +16,17 @@ window.addEventListener('keydown', (event) => {
       event.preventDefault() // Prevent scrolling
       player.attack() 
       break
+    case 'h': 
+      player.hitboxVisible();
+
+      monsters.forEach(monster => {
+        monster.hitboxVisible();
+      });
+      door.finishLevel();
+      console.log('Hitboxes toggled')
+      break
     }
+
 })
 
 window.addEventListener('keyup', (event) => {

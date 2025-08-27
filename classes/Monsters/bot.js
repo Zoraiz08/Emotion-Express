@@ -35,16 +35,24 @@ class bot {
       death: `MonstersAssetes/bot/death.png`,
     }
     this.lastDirection = 'down' 
+    this.HitBox = false
 
   // Probabilidad de ataque inicial
   this.attackChance = 0.3
 
   }
+  
+  hitboxVisible() {
+    this.HitBox = !this.HitBox;
+  }
+
   draw(c) {
     if (!this.loaded) return
     // Red square debug code
-    c.fillStyle = 'rgba(0, 0, 255, 0.5)'
-    c.fillRect(this.x, this.y, this.width, this.height)
+    c.fillStyle = 'rgba(0, 255, 128, 0.5)'
+    if (this.HitBox) {
+      c.fillRect(this.x, this.y, this.width, this.height)
+    }
     // Draw player image
     const cropbox = {
       x: 0, 

@@ -46,17 +46,17 @@ class skeleton {
       death: `MonstersAssetes/skeleton/death.png`,
     }
     this.lastDirection = 'down' 
-
-  // Probabilidad de ataque inicial
-  this.attackChance = 0.3
+    this.HitBox = false
 
   }
 
   draw(c) {
     if (!this.loaded) return
     // Red square debug code
-    c.fillStyle = 'rgba(0, 0, 255, 0.5)'
-    c.fillRect(this.x, this.y, this.width, this.height)
+    if (this.HitBox) {
+      c.fillStyle = 'rgba(255, 0, 255, 0.5)'
+      c.fillRect(this.x, this.y, this.width, this.height)
+    }
     // Draw player image
     let cropbox = this.animationCropbox.run
 
@@ -106,7 +106,7 @@ class skeleton {
       // move in random direction
       this.elapsedMovmentTime -= 3
       const angle = Math.random() * Math.PI * 2
-      const radius = 10 // Distance from the center
+      const radius = 30 // Distance from the center
       const targetLocation = {
         x: this.center.x + Math.cos(angle) * radius, 
         y: this.center.y + Math.sin(angle) * radius,
@@ -130,7 +130,9 @@ class skeleton {
     this.elapsedMovmentTime += deltaTime
   }
 
-
+  hitboxVisible(){
+    this.HitBox = !this.HitBox;
+  }
 
   updateHorizontalPosition(deltaTime) {
     this.x += this.velocity.x * deltaTime
