@@ -130,7 +130,7 @@ const monsters
   }),
   new skeleton({
     x: 150,
-    y: 500,
+    y: 450,
     size: {
       x: 20,
       y: 31,
@@ -257,7 +257,7 @@ function animate(backgroundCanvas) {
       hearts.pop()
       if (hearts.length === 0) {
         console.log('Game Over')
-        
+
         return // Stop the game loop
       }
     }
