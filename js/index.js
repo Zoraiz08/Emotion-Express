@@ -216,11 +216,18 @@ const allImages = [
   tilesets.l_DECOR.imageUrl,
 
   // Player sprites
-  "MonstersAssetes/player/idle.png",
-  "MonstersAssetes/player/run.png",
-  "MonstersAssetes/player/attack.png",
-  "MonstersAssetes/player/hit.png",
-  "MonstersAssetes/player/death.png",
+  "playerAssets/IDLE/idle_down.png",
+  "playerAssets/IDLE/idle_left.png",
+  "playerAssets/IDLE/idle_right.png",
+  "playerAssets/IDLE/idle_up.png",
+  "playerAssets/RUN/run_down.png",
+  "playerAssets/RUN/run_left.png",
+  "playerAssets/RUN/run_right.png",
+  "playerAssets/RUN/run_up.png",
+  "playerAssets/ATTACK 1/attack1_down.png",
+  "playerAssets/ATTACK 1/attack1_left.png",
+  "playerAssets/ATTACK 1/attack1_right.png",
+  "playerAssets/ATTACK 1/attack1_up.png",
 
   // Skeleton sprites
   "MonstersAssetes/skeleton/idle.png",
@@ -238,7 +245,7 @@ const allImages = [
   // Stormhead sprites
   "MonstersAssetes/stormhead/idle.png",
   "MonstersAssetes/stormhead/run.png",
-  "MonstersAssetes/stormhead/hit.png",
+  "MonstersAssetes/stormhead/damaged.png",
   "MonstersAssetes/stormhead/death.png",
 ]
 
