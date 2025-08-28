@@ -1,5 +1,5 @@
 class stormhead {
-  constructor({ x, y, size, velocity = { x: 0, y: 0 } }) {
+  constructor({ x, y, size, velocity = { x: 0, y: 0 }, health }) {
     this.x = x
     this.y = y
     this.width = size.x
@@ -31,12 +31,24 @@ class stormhead {
       idle: `MonstersAssetes/stormhead/idle.png`,
       run: `MonstersAssetes/stormhead/run.png`,
       attack: `MonstersAssetes/stormhead/attack.png`,
-      hit: `MonstersAssetes/stormhead/hit.png`,
+      hit: `MonstersAssetes/stormhead/damaged.png`,
       death: `MonstersAssetes/stormhead/death.png`,
     }
     this.lastDirection = 'down' 
     this.HitBox = false
+    this.health = health
+    this.isTakingHit = false
 
+    this.isInvrulnerable = false
+    this.elapsedInvulnerabilityTime = 0
+    this.invulnerabilityDuration = 0.5
+
+
+  }
+    reciveHit(){
+    this.health--
+    this.isInvrulnerable = true
+    console.log('stronhead health:', this.health)
   }
   draw(c) {
     if (!this.loaded) return
@@ -66,15 +78,41 @@ class stormhead {
     )
   }
 
+
+
   update(deltaTime, collisionBlocks) {
     if (!deltaTime) return
 
     const intervalTime = 0.1
     this.elapsedTime += deltaTime
+
+    if(this.isInvrulnerable){
+      this.elapsedInvulnerabilityTime += deltaTime
+      if(this.elapsedInvulnerabilityTime > this.invulnerabilityDuration){
+        this.isInvrulnerable = false
+        this.elapsedInvulnerabilityTime = 0
+      }
+    }
+
     if (this.elapsedTime > intervalTime){ // Control frame rate, adjust
-    // 0 - 7
-    this.curretFrame = (this.curretFrame + 1) % this.curretAnimation // si divideixes per el modul un nombre més petit et torna el mateix nombre
     this.elapsedTime -= intervalTime
+
+    if (this.img.src.includes(this.sprites.hit)) {
+      if (this.curretFrame < this.animationframes.hit - 1) {
+        this.curretFrame++
+      } else {
+        // al acabar la animación de hit, volver a idle
+        this.curretFrame = 0
+        this.curretAnimation = this.animationframes.run
+        this.img.src = this.sprites.run
+        this.isTakingHit = false
+      }
+    } else {
+      // animaciones normales (idle/run...) se repiten en bucle
+      this.curretFrame = (this.curretFrame + 1) % this.curretAnimation
+      this.isTakingHit = false
+    } // si divideixes per el modul un nombre més petit et torna el mateix nombre
+
     
   }
     this.setVelocity(deltaTime)

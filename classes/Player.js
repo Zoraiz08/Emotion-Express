@@ -44,9 +44,23 @@ class Player {
     this.lastDirection = 'down' 
     this.isAttacking = false
     this.HitBox = false
+        // Crear hitbox de ataque
+    this.attackHitBox = {
+      width: 40,
+      height: 40,
+      x: this.x,
+      y: this.y,
+    }
+    this.isInvrulnerable = false
+    this.invulnerabilityDuration = 1 // Duración de la invulnerabilidad en
+    this.elapsedInvulnerabilityTime = 0
 
   }
 
+  reciveHit(){
+    this.isInvrulnerable = true
+    console.log('player health:', this.health)
+  }
 
   draw(c) {
     if (!this.loaded) return
@@ -60,7 +74,9 @@ class Player {
     }
     c.fillStyle = 'rgba(0, 174, 255, 0.5)'
     if (this.HitBox) c.fillRect(this.x, this.y, this.width, this.height)
-
+    
+    c.save()
+    c.globalAlpha = this.isInvrulnerable ? 0.5 : 1
     c.drawImage(
       this.img,
       cropbox.width * this.curretFrame,
@@ -72,6 +88,7 @@ class Player {
       this.width + 80,
       this.height + 45
     )
+    c.restore()
 
     // Debug de la hitbox de ataque
     if (this.isAttacking && this.attackHitBox && this.HitBox) {
@@ -91,6 +108,14 @@ class Player {
 
     const intervalTime = 0.1
     this.elapsedTime += deltaTime
+
+    if(this.isInvrulnerable){
+      this.elapsedInvulnerabilityTime += deltaTime
+      if(this.elapsedInvulnerabilityTime > this.invulnerabilityDuration){
+        this.isInvrulnerable = false
+        this.elapsedInvulnerabilityTime = 0
+      }
+    }
 
     if (this.isAttacking) {
       // Avanza frames de ataque y termina cuando llegue al último
@@ -187,21 +212,19 @@ class Player {
     this.curretFrame = 0
     this.elapsedTime = 0
 
-    this.img.src = this.sprites.attack[this.lastDirection]
+      // Reiniciar hitbox relativa al jugador
+    this.attackHitBox.width = 40
+    this.attackHitBox.height = 40
+    this.attackHitBox.x = this.x
+    this.attackHitBox.y = this.y
 
-    // Crear hitbox de ataque
-    this.attackHitBox = {
-      width: 40,
-      height: 40,
-      x: this.x,
-      y: this.y,
-    }
+    this.img.src = this.sprites.attack[this.lastDirection]
 
     switch (this.lastDirection) {
       case 'right':
         this.attackHitBox.x += this.width
         this.attackHitBox.y += this.height / 2 - this.attackHitBox.height / 2
-        this.attackHitBox.width -= 8
+        this.attackHitBox.width
         break
       case 'left':
         this.attackHitBox.width -= 8
@@ -221,8 +244,6 @@ class Player {
         break
     }
 
-    console.log("Attack!")
-    console.log(this.attackHitBox)
   }
 
   hitboxVisible() {

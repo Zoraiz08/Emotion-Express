@@ -25,6 +25,7 @@ const layersData = {
    l_MAPA: l_MAPA,
    l_DECOR: l_DECOR,
 };
+
 const tilesets = {
   l_MAPA: { imageUrl: './images/a6ab1f5b-7aaa-4319-9925-3632c1dc9a00.png', tileSize: 16 },
   l_DECOR: { imageUrl: './images/a6ab1f5b-7aaa-4319-9925-3632c1dc9a00.png', tileSize: 16 },
@@ -125,6 +126,7 @@ const monsters
       x: 15,
       y: 31,
     },
+    health: 60,
   }),
   new skeleton({
     x: 150,
@@ -133,6 +135,7 @@ const monsters
       x: 20,
       y: 31,
     },
+    health: 3,
   }),
   new bot({
     x: 100,
@@ -141,6 +144,7 @@ const monsters
       x: 20,
       y: 31,
     },
+    health: 3,
   }), ]
 
 
@@ -168,7 +172,12 @@ const keys = {
 }
 
 let lastTime = performance.now()
+const hearts = [
+  new Heart({ x: 5, y: 5 }),
+  new Heart({ x: 21, y: 5 }),
+  new Heart({ x: 37, y: 5 }),
 
+]
 function animate(backgroundCanvas) {
   // Calculate delta time
   const currentTime = performance.now()
@@ -200,10 +209,69 @@ function animate(backgroundCanvas) {
     const monster = monsters[i]
     monster.update(deltaTime, collisionBlocks)
     monster.draw(c)
+      // detectar colisiones jugador - monstruo
+    if (
+      player.attackHitBox.x + player.attackHitBox.width >= monster.x &&
+      player.attackHitBox.x <= monster.x + monster.width &&
+      player.attackHitBox.y + player.attackHitBox.height >= monster.y &&
+      player.attackHitBox.y <= monster.y + monster.height &&
+      player.isAttacking && !monster.isTakingHit && !monster.isInvrulnerable) {
+      console.log('colision')
+      monster.curretAnimation = monster.animationframes.hit
+      monster.img.src = monster.sprites.hit
+      monster.curretFrame = 0
+      monster.elapsedTime = 0
+
+      monster.isTakingHit = true
+      monster.reciveHit()
+
+      if (monster.health <= 0) {
+        console.log('monster defeated')
+        monsters.splice(i, 1)
+      }
+
+      switch (player.lastDirection) {
+        case 'up':
+          monster.velocity.y = -50
+          break
+        case 'down':
+          monster.velocity.y = 50
+          break
+        case 'left':
+          monster.velocity.x = -50
+          break
+        case 'right':
+          monster.velocity.x = 50
+          break
+      }
+    }
+
+    // detectar colisiones jugador - monstruo
+    if (
+      player.x + player.width >= monster.x &&
+      player.x <= monster.x + monster.width &&
+      player.y + player.height >= monster.y &&
+      player.y <= monster.y + monster.height && !player.isInvrulnerable) {
+      player.reciveHit()
+
+      hearts.pop()
+      if (hearts.length === 0) {
+        console.log('Game Over')
+        
+        return // Stop the game loop
+      }
+    }
+
   }
 
   // Luego renderiza el jugador encima
   player.draw(c)
+
+  c.restore()
+
+  c.save()
+  c.scale(MAPA_SCALE, MAPA_SCALE)
+  hearts.forEach(heart => heart.draw(c))
   c.restore()
 
   requestAnimationFrame(() => animate(backgroundCanvas))

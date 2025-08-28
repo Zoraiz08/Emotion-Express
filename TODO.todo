@@ -2,28 +2,27 @@ TODO
 1. ASSETS
     [x]Buascar personaje
     [x]Buscar mapa
-    [ ]Crear um mapa de prueba
+    [x]Crear um mapa de prueba
     [ ]Crear 20 niveles
         []3 niveles faciles
         []4 VAGONES INTERMEDIO
         []4 VAGONES ESPECIALES
         []4 VAGONES DIFICILES
         []5 FINALES
-    [ ]OBJETOS
 
 2. MECANICAS BASICAS
     [x] COLISIONES EN ---> PROGRAMA
     [x] MOVIMINETO JUGADOR
-    [ ]ATACAR
-    [ ]ANIMACIONES DEL JUGADOR
+    [x]ATACAR
+    [x]ANIMACIONES DEL JUGADOR
     [x]MOVIMINETO DEL mapa
     [ ]VIDA--> 3 CORAZONES
     [ ]OBJETOS --> más daño, más vida, más velocidad ... 
-    [ ]CAMBIO DE NIVEL --> PUERTAS
+    [ ]CAMBIO DE NIVEL --> [x]PUERTAS
         [ ]NIVELES ALEATORIOS (por ahora)
         [ ] VOLVER AL NIVEL 1--> SI TE MUERES
-    [ ]ENEMIGOS
-         [ ]ANIMACIONES DE LOS ENEMIGOS
+    [x]ENEMIGOS
+         [x]ANIMACIONES DE LOS ENEMIGOS
 
 3. INTEGRACION IA
      [ ]AGREGAR LAS FUNCIONES DE LA CAMARA
