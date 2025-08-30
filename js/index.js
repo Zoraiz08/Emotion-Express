@@ -104,7 +104,9 @@ let levels = {
        door = new Door({ x: 100, y: 364.0001, size: { x: 20, y: 20} })
 
        monsters = [
-asd
+        new stormhead({x: 200,y: 500,size: {x: 15,y: 31,},health: 10,}),
+        new skeleton({x: 150,y: 450,size: {x: 20,y: 31,},health: 3}),   
+        new bot({x: 100,y: 500,size: {x: 20,y: 31},health: 3}), 
         ]
 
        player = new Player({ x: 150, y: 500, size: { x: 15, y: 31 } })
