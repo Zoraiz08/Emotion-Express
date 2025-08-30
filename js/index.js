@@ -22,34 +22,212 @@ const MAX_SCROLL_Y = MAP_HEIGHT - VIEWPORT_HEIGHT
 // ----------------------
 // TILESETS + MAPA
 // ----------------------
-const layersData = {
-  l_MAPA: l_MAPA,
-  l_DECOR: l_DECOR,
-};
+let layersData
 
-const tilesets = {
-  l_MAPA: { imageUrl: './images/a6ab1f5b-7aaa-4319-9925-3632c1dc9a00.png', tileSize: 16 },
-  l_DECOR: { imageUrl: './images/a6ab1f5b-7aaa-4319-9925-3632c1dc9a00.png', tileSize: 16 },
-};
+let tilesets
+
+let collisions = []
+
+// ----------------------
+// ENTIDADES
+// ----------------------
+let door 
+
+let monsters
+
+let player
+
+let hearts
+
+//-----------------------
+// LEVELS
+//-----------------------
+let level = 2
+let levels = {
+  1:{
+    init: () => {
+      // ----------------------
+      // TILESETS + MAPA
+      // ----------------------
+      layersData = {
+        l_MAPA: l_MAPA,
+        l_DECOR: l_DECOR,
+      };
+
+      tilesets = {
+        l_MAPA: { imageUrl: './images/a6ab1f5b-7aaa-4319-9925-3632c1dc9a00.png', tileSize: 16 },
+        l_DECOR: { imageUrl: './images/a6ab1f5b-7aaa-4319-9925-3632c1dc9a00.png', tileSize: 16 },
+      };
+
+      collisions = [
+      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      [1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [1,0,0,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      [1,0,0,1,0,0,0,1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,1],
+      [1,0,0,1,1,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,1,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      [0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1],
+      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,1,0,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1,1,1,1],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0],
+      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0]
+      ];
+
+      // ----------------------
+      // ENTIDADES
+      // ----------------------
+       door = new Door({ x: 100, y: 364.0001, size: { x: 20, y: 20} })
+
+       monsters = [
+        new stormhead({x: 200,y: 500,size: {x: 15,y: 31,},health: 10,}),
+        new skeleton({x: 150,y: 450,size: {x: 20,y: 31,},health: 3}),   
+        new bot({x: 100,y: 500,size: {x: 20,y: 31},health: 3}), 
+        ]
+
+       player = new Player({ x: 150, y: 500, size: { x: 15, y: 31 } })
+
+       hearts = [
+        new Heart({ x: 5, y: 5 }),
+        new Heart({ x: 21, y: 5 }),
+        new Heart({ x: 37, y: 5 }),
+      ]
+
+
+
+    }
+  },
+  2:{
+    init: () => {
+      // ----------------------
+      // TILESETS + MAPA
+      // ----------------------
+      layersData = {
+        l_New_Layer_5: l_New_Layer_5,
+        l_lvl: l_lvl,
+        l_deco1: l_deco1,
+        l_New_Layer_3: l_New_Layer_3,
+        l_colisions: l_colisions,
+      };
+
+      tilesets = {
+        l_New_Layer_5: { imageUrl: './images/a6ab1f5b-7aaa-4319-9925-3632c1dc9a00.png', tileSize: 16 },
+        l_lvl: { imageUrl: './images/a6ab1f5b-7aaa-4319-9925-3632c1dc9a00.png', tileSize: 16 },
+        l_deco1: { imageUrl: './images/a6ab1f5b-7aaa-4319-9925-3632c1dc9a00.png', tileSize: 16 },
+        l_New_Layer_3: { imageUrl: './images/69d77279-4a19-4f99-4623-3662432bf900.png', tileSize: 16 },
+        l_colisions: { imageUrl: './images/69d77279-4a19-4f99-4623-3662432bf900.png', tileSize: 16 },
+      };
+
+      collisions = [
+        [0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
+        [0,0,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+        [0,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0],
+        [0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0],
+        [0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0],
+        [0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0],
+        [0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0],
+        [0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0],
+        [0,1,0,0,0,0,1,0,0,1,1,1,1,1,1,1,1,0,0,1,0,0,0,1,0],
+        [0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0],
+        [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+        [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+        [0,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,1,0],
+        [0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0],
+        [0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0],
+        [0,0,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,0,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
+        [0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      ];
+
+      // ----------------------
+      // ENTIDADES
+      // ----------------------
+       door = new Door({ x: 100, y: 364.0001, size: { x: 20, y: 20} })
+
+       monsters = [
+        new stormhead({x: 200,y: 500,size: {x: 15,y: 31,},health: 10,}),
+        new skeleton({x: 150,y: 450,size: {x: 20,y: 31,},health: 3}),   
+        new bot({x: 100,y: 500,size: {x: 20,y: 31},health: 3}), 
+        ]
+
+       player = new Player({ x: 200, y: 450, size: { x: 15, y: 31 } })
+
+       hearts = [
+        new Heart({ x: 5, y: 5 }),
+        new Heart({ x: 21, y: 5 }),
+        new Heart({ x: 37, y: 5 }),
+      ]
+
+
+
+    }
+
+  }
+
+}
 
 // ----------------------
 // COLLISION BLOCKS
 // ----------------------
-const collisionBlocks = []
-const blockSize = 16
-collisions.forEach((row, y) => {
-  row.forEach((symbol, x) => {
-    if (symbol === 1) {
-      collisionBlocks.push(
-        new CollisionBlock({
-          x: x * blockSize,
-          y: y * blockSize,
-          size: blockSize,
-        }),
-      )
-    }
+function generateCollisionBlocks() {
+  collisionBlocks = []
+  const blockSize = 16
+  collisions.forEach((row, y) => {
+    row.forEach((symbol, x) => {
+      if (symbol === 1) {
+        collisionBlocks.push(
+          new CollisionBlock({
+            x: x * blockSize,
+            y: y * blockSize,
+            size: blockSize,
+          }),
+        )
+
+      }
+    })
   })
-})
+}
+
 
 const renderLayer = (tilesData, tilesetImage, tileSize, context) => {
   const tilesPerRow = Math.ceil(tilesetImage.width / tileSize)
@@ -87,31 +265,16 @@ const renderStaticLayers = async () => {
   return offscreenCanvas
 }
 
-// ----------------------
-// ENTIDADES
-// ----------------------
-const door = new Door({ x: 192, y: 0, size: { x: 16, y: 16 } })
+const keys = { w:{pressed:false}, a:{pressed:false}, s:{pressed:false}, d:{pressed:false}, e:{pressed: false} }
 
-const monsters = [
-  new stormhead({ x: 200, y: 500, size: { x: 15, y: 31 }, health: 60 }),
-  new skeleton({ x: 150, y: 450, size: { x: 20, y: 31 }, health: 3 }),
-  new bot({ x: 100, y: 500, size: { x: 20, y: 31 }, health: 3 }),
-]
-
-const player = new Player({ x: 150, y: 500, size: { x: 15, y: 31 } })
-
-const keys = { w:{pressed:false}, a:{pressed:false}, s:{pressed:false}, d:{pressed:false} }
-let lastTime = performance.now()
-
-const hearts = [
-  new Heart({ x: 5, y: 5 }),
-  new Heart({ x: 21, y: 5 }),
-  new Heart({ x: 37, y: 5 }),
-]
-
+const overlay = {
+  opacity: 0,
+}
 // ----------------------
 // LOOP
 // ----------------------
+let lastTime = performance.now()
+
 function animate(backgroundCanvas) {
   const currentTime = performance.now()
   const deltaTime = (currentTime - lastTime) / 1000
@@ -126,7 +289,7 @@ function animate(backgroundCanvas) {
   c.save()
   c.scale(MAPA_SCALE, MAPA_SCALE)
   c.translate(-horizontalScrollDistance, -verticalScrollDistance)
-  c.fillStyle = 'rgba(99, 0, 0, 0.5)'
+  c.fillStyle = 'rgba(0, 0, 0, 1)'
   c.fillRect(0, 0, canvas.width, canvas.height)
   c.drawImage(backgroundCanvas, 0, 0)
 
@@ -153,6 +316,7 @@ function animate(backgroundCanvas) {
       monster.isTakingHit = true
       monster.reciveHit()
 
+
       if (monster.health <= 0) {
         monsters.splice(i, 1)
       }
@@ -167,13 +331,60 @@ function animate(backgroundCanvas) {
       !player.isInvrulnerable
     ) {
       player.reciveHit()
-      hearts.pop()
-      if (hearts.length === 0) {
+      
+      const fillerHeart = hearts.filter(heart => heart.curretFrame === 0)
+
+      if (fillerHeart.length > 0) {
+        fillerHeart[fillerHeart.length - 1 ].curretFrame = 2
+      }
+      
+      if (fillerHeart.length <= 1) {
         console.log('Game Over')
-        return
+
       }
     }
   }
+
+  // --- finish level
+  if(monsters.length === 0 && 
+      player.x + player.width >= door.x &&
+      player.x <= door.x + door.width &&
+      player.y + player.height >= door.y &&
+      player.y <= door.y + door.height && keys.e.pressed && !door.open){
+
+          door.finishLevel()
+          player.img.src = 'playerAssets/RUN/run_up.png'
+          player.velocity.x = 0
+          player.velocity.y = -30
+          player.x = (door.x + door.width / 2) - player.width /2
+
+          gsap.to(overlay, {
+            opacity: 1,
+            duration: 1.5,
+            onComplete: async () => {
+              level++
+              if(!levels[level]) level = 1
+              levels[level].init()
+              generateCollisionBlocks()
+
+              const backgroundCanvas = await renderStaticLayers()  // 👈 ahora generas el mapa correcto
+              animate(backgroundCanvas) // 👈 pasas el canvas nuevo al loop
+
+              gsap.to(overlay, {
+                opacity: 0,
+                duration: 1.5,
+              })
+            }
+          })
+
+          door.open = true
+
+
+
+
+
+      }
+
 
   player.draw(c)
   c.restore()
@@ -183,9 +394,16 @@ function animate(backgroundCanvas) {
   hearts.forEach(heart => heart.draw(c))
   c.restore()
 
+
+// --- fade out code for finish lvl
+  c.save()
+  c.globalAlpha = overlay.opacity
+  c.fillStyle = 'black'
+  c.fillRect(0,0, canvas.width, canvas.height)
+  c.restore()
+
   requestAnimationFrame(() => animate(backgroundCanvas))
 }
-
 // ----------------------
 // PRELOADER
 // ----------------------
@@ -210,11 +428,12 @@ async function startRendering() {
 // ----------------------
 // 🔥 MAIN START
 // ----------------------
+levels[level].init() 
+generateCollisionBlocks()
 const allImages = [
   // Tilesets
-  tilesets.l_MAPA.imageUrl,
-  tilesets.l_DECOR.imageUrl,
-
+  "images/a6ab1f5b-7aaa-4319-9925-3632c1dc9a00.png",
+  "images/69d77279-4a19-4f99-4623-3662432bf900.png",
   // Player sprites
   "playerAssets/IDLE/idle_down.png",
   "playerAssets/IDLE/idle_left.png",

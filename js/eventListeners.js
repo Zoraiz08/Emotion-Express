@@ -1,4 +1,19 @@
 window.addEventListener('keydown', (event) => {
+  if (door.open) {
+    keys.w.pressed = false
+    keys.a.pressed = false
+    keys.s.pressed = false
+    keys.d.pressed = false
+    return}
+ 
+
+
+
+
+
+
+
+
   switch (event.key) {
     case 'w':
       keys.w.pressed = true
@@ -16,15 +31,18 @@ window.addEventListener('keydown', (event) => {
       event.preventDefault() // Prevent scrolling
       player.attack() 
       break
-    case 'h': 
+    case 'h': // de
       player.hitboxVisible();
-
+      door.hitboxVisible()
       monsters.forEach(monster => {
         monster.hitboxVisible();
       });
-      door.finishLevel();
       console.log('Hitboxes toggled')
       break
+    case 'e':
+      keys.e.pressed = true
+      break
+
     }
 
 })
@@ -42,6 +60,9 @@ window.addEventListener('keyup', (event) => {
       break
     case 'd':
       keys.d.pressed = false
+      break
+    case 'e':
+      keys.e.pressed = false
       break
     }
 })

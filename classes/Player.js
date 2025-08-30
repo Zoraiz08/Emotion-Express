@@ -59,7 +59,6 @@ class Player {
 
   reciveHit(){
     this.isInvrulnerable = true
-    console.log('player health:', this.health)
   }
 
   draw(c) {
@@ -167,6 +166,7 @@ class Player {
 
 // ⇩ 1) IGNORAR INPUT SI ESTÁ ATACANDO
   handleInput(keys) {
+    if (door.open) return
     if (this.isAttacking) {
       this.velocity.x = 0
       this.velocity.y = 0
@@ -222,24 +222,34 @@ class Player {
 
     switch (this.lastDirection) {
       case 'right':
-        this.attackHitBox.x += this.width
+        this.attackHitBox.width -= 8
+        this.attackHitBox.height -= 15
+        this.attackHitBox.x += this.width 
         this.attackHitBox.y += this.height / 2 - this.attackHitBox.height / 2
-        this.attackHitBox.width
+        this.attackHitBox.y -= 2
+        
         break
       case 'left':
         this.attackHitBox.width -= 8
+        this.attackHitBox.height -= 15
         this.attackHitBox.x -= this.attackHitBox.width
         this.attackHitBox.y += this.height / 2 - this.attackHitBox.height / 2
+        this.attackHitBox.y += 4
+        
         break
       case 'up':
-        this.attackHitBox.width += 20
+        this.attackHitBox.width += 15
+        this.attackHitBox.height -= 3
         this.attackHitBox.x += this.width / 2 - this.attackHitBox.width / 2
+        this.attackHitBox.x -= 2
         this.attackHitBox.y -= this.attackHitBox.height - 30
         break
       case 'down':
       default:
-        this.attackHitBox.width += 20
+        this.attackHitBox.width += 15
+        this.attackHitBox.height -= 7
         this.attackHitBox.x += this.width / 2 - this.attackHitBox.width / 2
+        this.attackHitBox.x -= 2
         this.attackHitBox.y += this.height - 20
         break
     }
@@ -280,6 +290,7 @@ class Player {
   }
 
   checkForVerticalCollisions(collisionBlocks) {
+    if(door.open) return
     const buffer = 0.0001
     for (let i = 0; i < collisionBlocks.length; i++) {
       const collisionBlock = collisionBlocks[i]

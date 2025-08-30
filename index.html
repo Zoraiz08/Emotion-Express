@@ -12,6 +12,12 @@ body {
   background: black;
   margin: 0;
 }
+p{
+  color: white;
+  text-align: justify;
+  margin: 20px 0;
+  font-size: 1rem;
+}
 h1 {
   color: white;
   text-align: center;
@@ -79,12 +85,21 @@ button:hover {
     <h1 style="color: white;">Emotion Express - Beta 1.0</h1>
     <canvas style="image-rendering: pixelated" ></canvas>
     <button onclick="toggleForm();">FeedBack</button>
+    <p > Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia excepturi qui debitis explicabo animi non commodi! Debitis, delectus repellendus! Inventore iste sequi provident ducimus, expedita aperiam eaque nulla facilis debitis.</p>
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd1uPsPX4jqmn_lffquRBR2se6hdL8-3Tg-YpFbjVfpFMDvwg/viewform?embedded=true" width="1024" height="3600" frameborder="0" marginheight="0" marginwidth="0">S&#39;està carregant…</iframe>
   </div>
 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- LEVEL1 -->
   <script src="./data/l_MAPA.js"></script>
   <script src="./data/l_DECOR.js"></script>
-  <script src="./data/collisions.js"></script>
+  <!-- LEVEL 2 -->
+  <script src="./data/l_New_Layer_5.js"></script>
+  <script src="./data/l_lvl.js"></script>
+  <script src="./data/l_deco1.js"></script>
+  <script src="./data/l_New_Layer_3.js"></script>
+  <script src="./data/l_colisions.js"></script>
 
   <script src="./js/utils.js"></script>
   <script src="./classes/CollisionBlock.js"></script>

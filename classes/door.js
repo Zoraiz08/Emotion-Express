@@ -17,15 +17,22 @@ class Door {
     this.img.src = 'utilsAssets/door.png'
     this.curretFrame = 0
     this.elapsedTime = 0
-
+    this.HitBox = false
+    this.open = false
     this.lvlfinished = false
 
 
   }
 
+  hitboxVisible(){
+    this.HitBox = !this.HitBox
+  }
 
   draw(c) {
     if (!this.loaded) return
+
+    c.fillStyle = 'rgba(0, 174, 255, 0.5)'
+    if (this.HitBox) c.fillRect(this.x, this.y, this.width, this.height)
     // Personaje
     const cropbox = {
       x: 0, 
@@ -33,9 +40,6 @@ class Door {
       width: 16,
       height: 16,
     }
-
-
-
     c.drawImage(
       this.img,
       cropbox.width * this.curretFrame,
@@ -55,7 +59,9 @@ class Door {
       this.lvlfinished = true
       this.curretFrame = 0 // Reinicia la animación
       this.elapsedTime = 0 // Reinicia el tiempo transcurrido
+      
     }
+
   // ⇩ 3) PRIORIDAD EN UPDATE + FINALIZAR ATAQUE
   update(deltaTime,) {
     if (!deltaTime) return
@@ -67,9 +73,7 @@ class Door {
     this.curretFrame++ 
     if (this.curretFrame >= 3) {
         this.curretFrame = 3 // o 0, depende si quieres que se quede abierta o que repita
-        this.lvlfinished = false // si quieres que solo se ejecute una vez
-
-        
+        // this.lvlfinished = false // si quieres que solo se ejecute una vez
     }
     this.elapsedTime -= intervalTime
 }
