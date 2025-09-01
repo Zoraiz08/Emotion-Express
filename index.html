@@ -8,9 +8,10 @@
   vertical-align: baseline;
 }
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: sans-serif;
   background: #1d1c2b;
   margin: 0;
+  color: white;
 }
 p{
   color: white;
@@ -25,11 +26,40 @@ h1 {
   font-size: 3rem;
   font-weight: bold;
 }
+h2{
+  color: white;
+  text-align: center;
+  margin: 20px 0;
+  font-size: 2rem;
+  font-weight: bold;
+  transition: 1s;
+}
+h2:hover {
+  cursor: pointer;
+  color: #ccc;
+  transform: scale(1.2);
+  transition: 1s;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+li {
+  margin: 5px auto;
+  font-size: 1.2rem;
+}
+strong {
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px black;
+  font-size: 1.2rem;
+}
 canvas {
   width: 1024px;
   height: 576px;
 }
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -73,6 +103,12 @@ button:hover {
   transition: 0.3s ease;
   font-weight: bold;
 }
+.controls {
+  transform: translate(0,0);
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px 60px ;
+  border-radius: 5px;
+}
 </style>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,8 +120,24 @@ button:hover {
     <h1 style="color: white;">Emotion Express - Alpha 1.0</h1>
     <canvas style="image-rendering: pixelated" ></canvas>
     <!-- <button onclick="toggleForm();">FeedBack</button> -->
+     <div class="controls">
+      <h2>Controls</h2>
+      <div style="display: flex; justify-content: space-between;">
+        <ul class="list">
+          <li><strong>W</strong>: Move Up</li>
+          <li><strong>A</strong>: Move Left</li>
+          <li><strong>S</strong>: Move Down</li>
+          <li><strong>D</strong>: Move Right</li>
+        </ul>
+        <ul class="list">
+          <li><strong>Space</strong>: Attack</li>
+          <li><strong>E</strong>: Open Doors</li>
+        </ul>
+      </div>
+    </div>
 
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd1uPsPX4jqmn_lffquRBR2se6hdL8-3Tg-YpFbjVfpFMDvwg/viewform?embedded=true" width="1024" height="3600" frameborder="0" marginheight="0" marginwidth="0">S&#39;està carregant…</iframe>
+
   </div>
 
 
@@ -126,6 +178,26 @@ button:hover {
         forms.style.display = 'none';
       }
     }
+  </script>
+
+
+  <script>
+    const list = document.getElementsByClassName('list');
+    function toggleControls() {
+      if (list[0].style.display === 'none' && list[1].style.display === 'none') {
+
+        list[0].style.display = 'block';
+        list[1].style.display = 'block';
+      } else {
+        list[0].style.display = 'none';
+        list[1].style.display = 'none';
+      }
+    }
+    list[0].style.display = 'none';
+    list[1].style.display = 'none';
+
+    document.querySelector('h2').addEventListener('click', toggleControls);
+
   </script>
 
 </body>
