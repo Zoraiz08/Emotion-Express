@@ -1,5 +1,5 @@
-const X_VELOCITY = 170
-const Y_VELOCITY = 170
+const X_VELOCITY = 140
+const Y_VELOCITY = 140
 
 class Player {
   constructor({ x, y, size, velocity = { x: 0, y: 0 } }) {
@@ -69,7 +69,7 @@ class Player {
       x: 0, 
       y: 0,
       width: 96,
-      height: 80,
+      height: 84,
     }
     c.fillStyle = 'rgba(0, 174, 255, 0.5)'
     if (this.HitBox) c.fillRect(this.x, this.y, this.width, this.height)
@@ -179,18 +179,22 @@ class Player {
     if (keys.d.pressed) {
       this.velocity.x = X_VELOCITY
       if (this.img.src !== this.sprites.run.right) this.img.src = this.sprites.run.right
+      if(this.isInvrulnerable) this.velocity.x *= 0.5
       this.lastDirection = 'right'
     } else if (keys.a.pressed) {
       this.velocity.x = -X_VELOCITY
       if (this.img.src !== this.sprites.run.left) this.img.src = this.sprites.run.left
+      if(this.isInvrulnerable) this.velocity.x *= 0.5
       this.lastDirection = 'left'
     } else if (keys.w.pressed) {
       this.velocity.y = -Y_VELOCITY
       if (this.img.src !== this.sprites.run.up) this.img.src = this.sprites.run.up
+      if(this.isInvrulnerable) this.velocity.y *= 0.5
       this.lastDirection = 'up'
     } else if (keys.s.pressed) {
       this.velocity.y = Y_VELOCITY
       if (this.img.src !== this.sprites.run.down) this.img.src = this.sprites.run.down
+      if(this.isInvrulnerable) this.velocity.y *= 0.5       
       this.lastDirection = 'down'
     } else {
       switch (this.lastDirection) {
@@ -291,6 +295,7 @@ class Player {
 
   checkForVerticalCollisions(collisionBlocks) {
     if(door.open) return
+    
     const buffer = 0.0001
     for (let i = 0; i < collisionBlocks.length; i++) {
       const collisionBlock = collisionBlocks[i]

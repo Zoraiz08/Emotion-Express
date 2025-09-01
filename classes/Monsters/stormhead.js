@@ -46,10 +46,34 @@ class stormhead {
 
   }
     reciveHit(){
-    this.health--
-    this.isInvrulnerable = true
-    console.log('stronhead health:', this.health)
-  }
+        this.health--
+        this.isInvrulnerable = true
+        console.log('stormhead health:', this.health)
+
+        // Empuje según la dirección del jugador
+        if (player && player.lastDirection) {
+          const knockback = 50 // píxeles de empuje
+          switch(player.lastDirection) {
+            case 'right':
+              if(this.velocity.x > 100) break; // no empujar si ya se mueve rapido en esa dirección
+              this.velocity.x += knockback;
+              break;
+            case 'left':
+              if(this.velocity.x < -100) break; // no empujar si ya se mueve rapido en esa dirección
+              this.velocity.x -= knockback;
+              break;
+            case 'up':
+              if(this.velocity.y < -100) break; // no empujar si ya se mueve rapido en esa dirección
+              this.velocity.y -= knockback;
+              break;
+            case 'down':
+            default:
+              if(this.velocity.y > 100) break; // no empujar si ya se mueve rapido en esa dirección
+              this.velocity.y += knockback;
+              break;
+          }
+        }
+      }
   draw(c) {
     if (!this.loaded) return
     // Red square debug code
