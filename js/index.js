@@ -421,8 +421,28 @@ function animate(backgroundCanvas) {
       }
       
       if (fillerHeart.length <= 1) {
-        console.log('Game Over')
 
+        console.log('Game Over')
+        // Show game over screen or restart game
+        player.velocity.x = 0
+        player.velocity.y = 0
+        player.img.src = 'playerAssets/IDLE/idle_down.png'
+        door.open = true // Evita que el jugador pueda avanzar o moverse
+        gsap.to(overlay, {
+          opacity: 1,
+          duration: 1.5,
+          onComplete: () => {
+            // Restart the game or show game over screen
+            levels[level].init()
+
+
+              gsap.to(overlay, {
+                opacity: 0,
+                duration: 1.5,
+              })
+
+          }
+        })
       }
     }
   }
