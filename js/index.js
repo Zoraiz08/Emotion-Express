@@ -280,7 +280,7 @@ let levels = {
        monsters = [
         new stormhead({x: 304,y: 176,size: {x: 15,y: 31,},health: 5,}),
         new skeleton({x: 272,y: 480,size: {x: 20,y: 31,},health: 3}),   
-        new skeleton({x: 80,y: 336,size: {x: 20,y: 31,},health: 10}),   
+        new skeleton({x: 80,y: 336,size: {x: 20,y: 31,},health: 5}),   
         new bot({x: 64,y: 176,size: {x: 20,y: 31},health: 3}), 
         ]
 
