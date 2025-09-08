@@ -109,6 +109,21 @@ button:hover {
   padding: 10px 60px ;
   border-radius: 5px;
 }
+
+.Mbox {
+  position: absolute;
+  top: 72%;
+  left: 62% ;
+  width: 300px;
+  height: 100px;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  
+}
 </style>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,7 +133,8 @@ button:hover {
 <body>
   <div class="container">
     <h1 style="color: white;">Emotion Express - Alpha 1.0</h1>
-    <canvas style="image-rendering: pixelated" ></canvas>
+    <canvas style="image-rendering: pixelated; position: relative;"></canvas>
+    <div class="Mbox"></div>
     <!-- <button onclick="toggleForm();">FeedBack</button> -->
      <div class="controls">
       <h2>Controls</h2>
@@ -146,11 +162,10 @@ button:hover {
   <script src="./data/l_MAPA.js"></script>
   <script src="./data/l_DECOR.js"></script>
   <!-- LEVEL 2 -->
-  <script src="./data/l_New_Layer_5.js"></script>
-  <script src="./data/l_lvl.js"></script>
-  <script src="./data/l_deco1.js"></script>
-  <script src="./data/l_New_Layer_3.js"></script>
-  <script src="./data/l_colisions.js"></script> 
+  <script src="./data/l_floor_lvl2.js"></script>
+  <script src="./data/l_floor2_lvl2.js"></script>
+  <script src="./data/l_WALLS_LVL2.js"></script>
+  <script src="./data/l_deco_lvl2.js"></script>
   <!-- LEVEL 3 -->
   <script src="./data/l_floor_lvl1.js"></script>
   <script src="./data/l_loor2_lvl1.js"></script>
@@ -186,6 +201,7 @@ button:hover {
 
 <!-- Controls -->
   <script>
+    const Mbox = document.querySelector('.Mbox');
     const list = document.getElementsByClassName('list');
     function toggleControls() {
       if (list[0].style.display === 'none' && list[1].style.display === 'none') {

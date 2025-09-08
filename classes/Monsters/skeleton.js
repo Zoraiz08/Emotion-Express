@@ -79,6 +79,7 @@ class skeleton {
   reciveHit(){
     this.health--
     this.isInvrulnerable = true
+    Mbox.innerHTML = `<h3>Skeleton Health: ${this.health}</h3>`
     console.log('skeleton health:', this.health)
 
     // Empuje según la dirección del jugador

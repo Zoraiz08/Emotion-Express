@@ -48,6 +48,7 @@ class stormhead {
     reciveHit(){
         this.health--
         this.isInvrulnerable = true
+        Mbox.innerHTML = `<h3>Stormhead Health: ${this.health}</h3>`
         console.log('stormhead health:', this.health)
 
         // Empuje según la dirección del jugador
