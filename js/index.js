@@ -1,6 +1,6 @@
-const canvas = document.querySelector('canvas')
+const canvas = document.getElementById('gameCanvas')
 const c = canvas.getContext('2d')
-const dpr = 1 //window.devicePixelRatio || 1 --> problems
+const dpr = 1 //window.devicePixelRatio || 1 --> problemes
 
 let zoom = 2.5
 
@@ -32,7 +32,6 @@ let collisions = []
 // ENTIDADES
 // ----------------------
 let door
-
 
 let monsters
 
@@ -278,10 +277,10 @@ let levels = {
        door = new Door({ x: 67, y: 10.0001, size: { x: 20, y: 20} })
 
        monsters = [
-        new stormhead({x: 304,y: 176,size: {x: 15,y: 31,},health: 5,}),
-        new skeleton({x: 272,y: 480,size: {x: 20,y: 31,},health: 3}),   
-        new skeleton({x: 80,y: 336,size: {x: 20,y: 31,},health: 5}),   
-        new bot({x: 64,y: 176,size: {x: 20,y: 31},health: 3}), 
+        // new stormhead({x: 304,y: 176,size: {x: 15,y: 31,},health: 5,}),
+        // new skeleton({x: 272,y: 480,size: {x: 20,y: 31,},health: 3}),   
+        // new skeleton({x: 80,y: 336,size: {x: 20,y: 31,},health: 5}),   
+        // new bot({x: 64,y: 176,size: {x: 20,y: 31},health: 3}), 
         ]
 
        player = new Player({ x: 64, y: 460, size: { x: 15, y: 32 } })
@@ -364,6 +363,7 @@ const keys = { w:{pressed:false}, a:{pressed:false}, s:{pressed:false}, d:{press
 const overlay = {
   opacity: 0,
 }
+
 // ----------------------
 // LOOP
 // ----------------------
@@ -481,8 +481,8 @@ function animate(backgroundCanvas) {
               levels[level].init()
               generateCollisionBlocks()
 
-              const backgroundCanvas = await renderStaticLayers()  // 👈 ahora generas el mapa correcto
-              animate(backgroundCanvas) // 👈 pasas el canvas nuevo al loop
+              const backgroundCanvas = await renderStaticLayers() 
+              animate(backgroundCanvas)
 
               gsap.to(overlay, {
                 opacity: 0,
@@ -501,10 +501,6 @@ function animate(backgroundCanvas) {
 
 
   player.draw(c)    
-
-   
-
-
   c.restore()
 
   c.save()
@@ -522,6 +518,10 @@ function animate(backgroundCanvas) {
 
   requestAnimationFrame(() => animate(backgroundCanvas))
 }
+
+
+
+
 // ----------------------
 // PRELOADER
 // ----------------------
@@ -544,13 +544,14 @@ async function startRendering() {
 }
 
 // ----------------------
-// 🔥 MAIN START
+// MAIN START
 // ----------------------
+
 levels[level].init() 
 generateCollisionBlocks()
 const allImages = [
   // Tilesets
-  "images/a6ab1f5b-7aaa-4319-9925-3632c1dc9a00.png",
+  // "images/a6ab1f5b-7aaa-4319-9925-3632c1dc9a00.png", 
   "images/69d77279-4a19-4f99-4623-3662432bf900.png",
   "images/73729a4b-852d-4c77-c0b3-25dae1c9db00.png",
   "images/7a6e7ea9-d955-415d-f025-facb2b600200.png",

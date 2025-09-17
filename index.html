@@ -54,10 +54,7 @@ strong {
   text-shadow: 1px 1px 2px black;
   font-size: 1.2rem;
 }
-canvas {
-  width: 1024px;
-  height: 576px;
-}
+
 .container {
   position: relative;
   display: flex;
@@ -110,7 +107,7 @@ button:hover {
   border-radius: 5px;
 }
 
-.Mbox {
+/* .Mbox {
   position: absolute;
   top: 72%;
   left: 62% ;
@@ -122,20 +119,88 @@ button:hover {
   border-radius: 10px;
   display: flex;
   align-items: center;
-  
+} */
+
+.camara {
+position: absolute;
+top: 15%;
+right: 50%;
+transform: translate(50%, 0);
+width: 420px;
+background-color: rgba(29, 28, 43, 0.5);  
+padding: 10px;
+padding-bottom:1px;
+border-radius: 10px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+transition: opacity 0.5s ease;
+opacity: 1;
+z-index: 10;
 }
+
+
+        .texto {
+            text-align: center;
+            font-size: 1rem;
+            color: white;
+            margin-bottom: 10px;
+            background-color: rgba(29, 28, 43, 0.8);
+            border-radius: 10px;
+        }
+         .container2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .abajo {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+        #canvas {
+            border: 1px solid #ccc;
+            border-radius: 5%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+        .btn {
+            padding: 17px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        #resultado {
+            position: absolute;
+            font-size: 2rem;
+            top: 75%;
+            font-weight: bold;
+            color: #000000;
+        }
 </style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title></title>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmotionNetV2</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
 </head>
 <body>
   <div class="container">
     <h1 style="color: white;">Emotion Express - Alpha 1.0</h1>
-    <canvas style="image-rendering: pixelated; position: relative;"></canvas>
-    <div class="Mbox"></div>
-    <!-- <button onclick="toggleForm();">FeedBack</button> -->
+    <canvas id="gameCanvas" style="image-rendering: pixelated; position: relative;"></canvas>
+    <div style="opacity: 0;" class="Mbox"></div> 
+
      <div class="controls">
       <h2>Controls</h2>
       <div style="display: flex; justify-content: space-between;">
@@ -152,11 +217,26 @@ button:hover {
       </div>
     </div>
 
+    <div class="camara">
+      <div class="container2 texto">
+              <p>Camara de Reconocimiento facial <br> Pulsa C para ocultar o mostrar la camara <br> Procura que tu cara este lo mas centrada posible</p>
+      </div>
+      <div class="container2">
+              <video id="video" playsinline autoplay style="width: 1px;"></video>
+              <canvas id="canvas" width="400" height="400" style="max-width: 100%; opacity: 1;"></canvas>
+      </div>
+    </div>
+    
+    <!-- <button onclick="toggleForm();">FeedBack</button> -->
+     <canvas id="otrocanvas" width="48" height="48" style="opacity: 0;"></canvas>
+
+
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd1uPsPX4jqmn_lffquRBR2se6hdL8-3Tg-YpFbjVfpFMDvwg/viewform?embedded=true" width="1024" height="3600" frameborder="0" marginheight="0" marginwidth="0">S&#39;està carregant…</iframe>
 
   </div>
-
-
+  <!-- EMOTIONNET -->
+  <script src="js/emotionNet.js"></script>
+  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- LEVEL1 -->
   <script src="./data/l_floor_lvl3.js"></script>

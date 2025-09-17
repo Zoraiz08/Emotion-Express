@@ -4,15 +4,10 @@ window.addEventListener('keydown', (event) => {
     keys.a.pressed = false
     keys.s.pressed = false
     keys.d.pressed = false
-    return}
+    if (event.key === ' ') event.preventDefault() // Prevent scrolling
+    return
+  }
  
-
-
-
-
-
-
-
 
   switch (event.key) {
     case 'w':
@@ -29,9 +24,10 @@ window.addEventListener('keydown', (event) => {
       break
     case ' ':
       event.preventDefault() // Prevent scrolling
+
       player.attack() 
       break
-    case 'h': // de
+    case 'h': // debug hitboxes
       player.hitboxVisible();
       door.hitboxVisible()
       monsters.forEach(monster => {
@@ -41,6 +37,9 @@ window.addEventListener('keydown', (event) => {
       break
     case 'e':
       keys.e.pressed = true
+      break
+    case 'c':
+      mostrarOcultarCamara();
       break
 
     }
