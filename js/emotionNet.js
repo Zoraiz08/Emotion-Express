@@ -8,7 +8,7 @@ var currentStream = null;
 var facingMode = "user";
 
 let modelo = null;
-
+let IAmodeActive = false; // Variable para activar/desactivar el modo IA
 let emotionCounter = [0, 0, 0, 0, 0, 0]; // Contador para cada emoción
 
 
@@ -236,10 +236,15 @@ function maxEmotion() {
 } 
 
 function mostrarOcultarCamara() {
-    const camara = document.getElementsByClassName("camara")[0];
+  const camara = document.getElementsByClassName("camara")[0];
+  if (!IAmodeActive) return; // Si el modo IA está desactivado, no hacer nada
     if (camara.style.opacity === "0") {
         camara.style.opacity = "1";
     } else {
         camara.style.opacity = "0";
     }
+}
+
+function IAmode() {
+  IAmodeActive = !IAmodeActive;
 }

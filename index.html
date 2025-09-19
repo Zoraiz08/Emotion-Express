@@ -105,6 +105,7 @@ button:hover {
   background-color: rgba(255, 255, 255, 0.1);
   padding: 10px 60px ;
   border-radius: 5px;
+  width: 600px;
 }
 
 /* .Mbox {
@@ -137,55 +138,54 @@ opacity: 1;
 z-index: 10;
 }
 
-
-        .texto {
-            text-align: center;
-            font-size: 1rem;
-            color: white;
-            margin-bottom: 10px;
-            background-color: rgba(29, 28, 43, 0.8);
-            border-radius: 10px;
-        }
-         .container2 {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .abajo {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-        }
-        #canvas {
-            border: 1px solid #ccc;
-            border-radius: 5%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin: 10px;
-        }
-        .btn {
-            padding: 17px 20px;
-            margin: 5px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .btn:hover {
-            background-color: #0056b3;
-        }
-        #resultado {
-            position: absolute;
-            font-size: 2rem;
-            top: 75%;
-            font-weight: bold;
-            color: #000000;
-        }
+.texto {
+    text-align: center;
+    font-size: 1rem;
+    color: white;
+    margin-bottom: 10px;
+    background-color: rgba(29, 28, 43, 0.8);
+    border-radius: 10px;
+}
+  .container2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.abajo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#canvas {
+    border: 1px solid #ccc;
+    border-radius: 5%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+}
+.btn {
+    padding: 17px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.btn:hover {
+    background-color: #0056b3;
+}
+#resultado {
+    position: absolute;
+    font-size: 2rem;
+    top: 75%;
+    font-weight: bold;
+    color: #000000;
+}
 </style>
 <!DOCTYPE html>
 <html lang="en">
@@ -197,12 +197,19 @@ z-index: 10;
 </head>
 <body>
   <div class="container">
-    <h1 style="color: white;">Emotion Express - Alpha 1.0</h1>
+    <h1 style="color: white;">Emotion Express - Beta 1.0</h1>
     <canvas id="gameCanvas" style="image-rendering: pixelated; position: relative;"></canvas>
     <div style="opacity: 0;" class="Mbox"></div> 
 
-     <div class="controls">
-      <h2>Controls</h2>
+    <div class="controls" style="border-radius: 5px 5px 0px 0px;">
+      <h2 class="tutorial-title">Tutorial</h2>
+      <div style="display: flex; justify-content: space-between;">
+        <p class="tutorial-text">En aquest joc l’objectiu és superar nivells eliminant tots els monstres i, un cop aconseguit, col·locar-te sobre una porta i prem E per avançar. Et mous amb les tecles WASD i ataques amb la barra d'espai. A més, disposes d’una opció especial: en prémer M actives el mode IA amb reconeixement facial, que decidirà el pròxim nivell al qual accediràs. Si aquest mode està desactivat, simplement passaràs al nivell següent de manera normal; en canvi, si està actiu, pots prémer C per obrir la càmera i comprovar si la teva cara està centrada abans de continuar.</p>
+      </div>
+    </div>
+
+     <div class="controls" style="border-radius: 0px 0px 5px 5px;">
+      <h2 class="controls-title">Controls</h2>
       <div style="display: flex; justify-content: space-between;">
         <ul class="list">
           <li><strong>W</strong>: Move Up</li>
@@ -213,11 +220,13 @@ z-index: 10;
         <ul class="list">
           <li><strong>Space</strong>: Attack</li>
           <li><strong>E</strong>: Open Doors</li>
+          <li><strong>C</strong>: Camara</li>
+          <li><strong>M</strong>: IA Mode On/Off</li>
         </ul>
       </div>
     </div>
 
-    <div class="camara">
+    <div class="camara" style="opacity: 0;">
       <div class="container2 texto">
               <p>Camara de Reconocimiento facial <br> Pulsa C para ocultar o mostrar la camara <br> Procura que tu cara este lo mas centrada posible</p>
       </div>
@@ -254,9 +263,17 @@ z-index: 10;
   <script src="./data/l_walls_lvl1.js"></script>
   <script src="./data/l_deco_lvl1.js"></script>
 
+  <!-- LEVEL 4 -->
+  <script src="./data/l_floor_lvl4.js"></script>
+  <script src="./data/l_floor2_lvl4.js"></script>
+  <script src="./data/l_walls_lvl4.js"></script>
+  <script src="./data/l_deco_lvl4.js"></script>
 
-
-
+  <!-- LEVEL 5 -->
+  <script src="./data/l_floor_lvl5.js"></script>
+  <script src="./data/l_floor2_lvl5.js"></script>
+  <script src="./data/l_walls_lvl5.js"></script>
+  <script src="./data/l_deco_lvl5.js"></script>
 
   <!-- CLASSES -->  
   <script src="./js/utils.js"></script>
@@ -287,20 +304,40 @@ z-index: 10;
   <script>
     const Mbox = document.querySelector('.Mbox');
     const list = document.getElementsByClassName('list');
+    const tutorial = document.getElementsByClassName('tutorial-text')[0];
+    const controls = document.getElementsByClassName('controls')[1];
+
+    controls.style.opacity = '0';
+
     function toggleControls() {
-      if (list[0].style.display === 'none' && list[1].style.display === 'none') {
+      if (list[0].style.display === 'none' && list[1].style.display === 'none' && tutorial.style.display === 'none') {
 
         list[0].style.display = 'block';
         list[1].style.display = 'block';
+        tutorial.style.display = 'block';
+
+
+        controls.style.opacity = '1';
       } else {
         list[0].style.display = 'none';
         list[1].style.display = 'none';
+        tutorial.style.display = 'none';
+
+        controls.style.opacity = '0';
       }
     }
+
     list[0].style.display = 'none';
     list[1].style.display = 'none';
+    tutorial.style.display = 'none';
 
-    document.querySelector('h2').addEventListener('click', toggleControls);
+    controls.style.opacity = '0';
+
+    document.querySelector('.tutorial-title').addEventListener('click', toggleControls);
+    document.querySelector('.tutorial-title').style.cursor = 'pointer';
+
+    document.querySelector('.controls-title').addEventListener('click', toggleControls);
+    document.querySelector('.controls-title').style.cursor = 'pointer';
 
   </script>
 
