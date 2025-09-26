@@ -43,6 +43,7 @@ window.addEventListener('keydown', (event) => {
       break
     case 'm':
       IAmode();
+      toggleIAMode();
       break
     }
 

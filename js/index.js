@@ -42,8 +42,9 @@ let hearts
 //-----------------------
 // LEVELS
 //-----------------------
-let level = 5
+let level = 1
 let levels = {
+// Nivell Neutral
   1:{
     init: () => {
       // ----------------------
@@ -110,12 +111,12 @@ let levels = {
        door = new Door({ x: 320, y: 42.0001, size: { x: 20, y: 20} })
 
        monsters = [
-        new stormhead({x: 192,y: 448,size: {x: 15,y: 31,},health: 5,}),
-        new skeleton({x: 272,y: 304,size: {x: 20,y: 31,},health: 5}),   
-        new skeleton({x: 64,y: 96,size: {x: 20,y: 31,},health: 5}),   
-        new skeleton({x: 192,y: 96,size: {x: 20,y: 31,},health: 5}),   
-        new bot({x: 272,y: 400,size: {x: 20,y: 31},health: 5}), 
-        new bot({x: 64,y: 304,size: {x: 20,y: 31},health: 5}), 
+        new stormhead({x: 192,y: 448,size: {x: 15,y: 31,},health: 3}),
+        new skeleton({x: 272,y: 304,size: {x: 20,y: 31,},health: 2}),   
+        new skeleton({x: 64,y: 96,size: {x: 20,y: 31,},health: 2}),   
+        new skeleton({x: 192,y: 96,size: {x: 20,y: 31,},health: 2}),   
+        new bot({x: 272,y: 400,size: {x: 20,y: 31},health: 2}), 
+        new bot({x: 64,y: 304,size: {x: 20,y: 31},health: 2}), 
         ]
 
        player = new Player({ x: 80, y: 448, size: { x: 15, y: 31 } })
@@ -130,6 +131,7 @@ let levels = {
 
     }
   },
+  // Nivell Tristeza
   2:{
     init: () => {
       // ----------------------
@@ -194,12 +196,12 @@ let levels = {
 
        monsters = [
         new stormhead({x: 160 ,y: 144,size: {x: 15,y: 31,},health: 5,}),
-        new skeleton({x: 32,y: 464,size: {x: 20,y: 31,},health: 3}),   
-        new skeleton({x: 304,y: 464,size: {x: 20,y: 31,},health: 3}),   
-        new skeleton({x: 352,y: 288,size: {x: 20,y: 31,},health: 3}),   
-        new bot({x: 80,y: 320,size: {x: 20,y: 31},health: 3}), 
-        new bot({x: 176,y: 320,size: {x: 20,y: 31},health: 3}), 
-        new bot({x: 32,y: 112,size: {x: 20,y: 31},health: 3}), 
+        new skeleton({x: 32,y: 464,size: {x: 20,y: 31,},health: 2}),   
+        new skeleton({x: 304,y: 464,size: {x: 20,y: 31,},health: 2}),   
+        new skeleton({x: 352,y: 288,size: {x: 20,y: 31,},health: 2}),   
+        new bot({x: 80,y: 320,size: {x: 20,y: 31},health: 2}), 
+        new bot({x: 176,y: 320,size: {x: 20,y: 31},health: 2}), 
+        new bot({x: 32,y: 112,size: {x: 20,y: 31},health: 2}), 
         ]
 
        player = new Player({ x: 160, y: 464, size: { x: 15, y: 31 } })
@@ -215,6 +217,7 @@ let levels = {
     }
 
   },
+  // Nivell Feliç
   3:{
     init: () => {
       // ----------------------
@@ -277,10 +280,10 @@ let levels = {
        door = new Door({ x: 67, y: 10.0001, size: { x: 20, y: 20} })
 
        monsters = [
-        // new stormhead({x: 304,y: 176,size: {x: 15,y: 31,},health: 5,}),
-        // new skeleton({x: 272,y: 480,size: {x: 20,y: 31,},health: 3}),   
-        // new skeleton({x: 80,y: 336,size: {x: 20,y: 31,},health: 5}),   
-        // new bot({x: 64,y: 176,size: {x: 20,y: 31},health: 3}), 
+        new stormhead({x: 304,y: 176,size: {x: 15,y: 31,},health: 5,}),
+        new skeleton({x: 272,y: 480,size: {x: 20,y: 31,},health: 3}),   
+        new skeleton({x: 80,y: 336,size: {x: 20,y: 31,},health: 5}),   
+        new bot({x: 64,y: 176,size: {x: 20,y: 31},health: 3}), 
         ]
 
        player = new Player({ x: 64, y: 460, size: { x: 15, y: 32 } })
@@ -296,6 +299,7 @@ let levels = {
     }
 
   },
+  // Nivell Surpresa
   4:{
     init: () => {
       // ----------------------
@@ -358,12 +362,12 @@ let levels = {
        door = new Door({ x: 192, y: 26.0001, size: { x: 20, y: 20} })
 
        monsters = [
-        new stormhead({x: 64,y: 448,size: {x: 15,y: 31,},health: 5,}),
-        new stormhead({x: 128,y: 96,size: {x: 15,y: 31,},health: 5,}),
-        new skeleton({x: 48,y: 400,size: {x: 20,y: 31,},health: 3}),   
-        new skeleton({x: 48,y: 272,size: {x: 20,y: 31,},health: 5}),   
-        new bot({x: 336,y: 256,size: {x: 20,y: 31},health: 3}), 
-        new bot({x: 256,y: 80,size: {x: 20,y: 31},health: 3}), 
+        new stormhead({x: 64,y: 448,size: {x: 15,y: 31,},health: 3,}),
+        new stormhead({x: 128,y: 96,size: {x: 15,y: 31,},health: 3,}),
+        new skeleton({x: 48,y: 400,size: {x: 20,y: 31,},health: 2}),   
+        new skeleton({x: 48,y: 272,size: {x: 20,y: 31,},health: 3}),   
+        new bot({x: 336,y: 256,size: {x: 20,y: 31},health: 2}), 
+        new bot({x: 256,y: 80,size: {x: 20,y: 31},health: 2}), 
         ]
 
        player = new Player({ x: 304, y: 464, size: { x: 15, y: 32 } })
@@ -379,6 +383,7 @@ let levels = {
     }
 
   },
+  // Nivell Enfadat
   5:{
     init: () => {
       // ----------------------
@@ -645,31 +650,33 @@ function animate(backgroundCanvas) {
               if(IAmodeActive) {
                 switch (maxEmotion()){
                   case 'Angry':
-                    level = 4
+                    level = 5
                   break
                   case 'Happy':
-                  level = 2
+                  level = 3
                   break
                   case 'Fear': 
                     level = 3
                   break
                   case 'Neutral':
-                    level = 2
+                    level = 1
                   break 
                   case 'Sad':
-                    level = 4
+                    level = 2
                   break 
                   case'Surprise':
-                    level = 3
+                    level = 4
                   break
                   default:
                     level = 1
                   break
                   // FALTA ACABAR DE CONCRETAR
               }
+              updateLevelIndicator(level)
             } else {
                 level++
                 if(level > 5) level = 1
+                updateLevelIndicator(level)
               }
               emotionCounter = [0,0,0,0,0,0]
 

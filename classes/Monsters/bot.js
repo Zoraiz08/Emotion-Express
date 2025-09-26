@@ -53,7 +53,6 @@ class bot {
   reciveHit(){
     this.health--
     this.isInvrulnerable = true
-    Mbox.innerHTML = `<h3>Bot Health: ${this.health}</h3>`
     console.log('bot health:', this.health)
 
     // Empuje según la dirección del jugador

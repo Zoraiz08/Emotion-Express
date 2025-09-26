@@ -82,16 +82,17 @@ iframe {
 button {
   background-color: #4CAF50; /* Green */
   border: none;
+  font-size: 1.5rem;
+  font-weight: bold;
   color: white;
-  padding: 15px 20px;
+  padding: 20px 5px;
+  width: 200px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 1rem;
-  margin: 20px 2px;
   cursor: pointer;
   border-radius: 10px;
-    transition: 0.3s ease;
+  transition: 0.3s ease;
     
 }
 button:hover {
@@ -108,19 +109,18 @@ button:hover {
   width: 600px;
 }
 
-/* .Mbox {
-  position: absolute;
-  top: 72%;
-  left: 62% ;
-  width: 300px;
-  height: 100px;
+.IAMode {
+  margin: 0 10px;
+  width: 40px;
+  height: 40px;
   pointer-events: none;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 0, 0, 0.5);
   z-index: 1;
   border-radius: 10px;
   display: flex;
   align-items: center;
-} */
+  justify-content: center;  
+}
 
 .camara {
 position: absolute;
@@ -197,9 +197,13 @@ z-index: 10;
 </head>
 <body>
   <div class="container">
-    <h1 style="color: white;">Emotion Express - Beta 1.0</h1>
+    <h1 style="color: white;;">Emotion Express - Beta 1.0 
+      <div style="display: flex; justify-content: center; align-items: center;">
+      <div style="opacity: 1; display: inline-block;" class="IAMode"> <img style="width: 38px; height: 38px;" src="images/chip-de-ia.png" alt=""></div> 
+      <div style="display: inline-block;" class="Level"><h2></h2></div> 
+      </div>
+    </h1>
     <canvas id="gameCanvas" style="image-rendering: pixelated; position: relative;"></canvas>
-    <div style="opacity: 0;" class="Mbox"></div> 
 
     <div class="controls" style="border-radius: 5px 5px 0px 0px;">
       <h2 class="tutorial-title">Tutorial</h2>
@@ -212,16 +216,16 @@ z-index: 10;
       <h2 class="controls-title">Controls</h2>
       <div style="display: flex; justify-content: space-between;">
         <ul class="list">
-          <li><strong>W</strong>: Move Up</li>
-          <li><strong>A</strong>: Move Left</li>
-          <li><strong>S</strong>: Move Down</li>
-          <li><strong>D</strong>: Move Right</li>
+          <li><strong>W</strong>: Moure amunt</li>
+          <li><strong>A</strong>: Moure a l'esquerra</li>
+          <li><strong>S</strong>: Moure avall</li>
+          <li><strong>D</strong>: Moure a la dreta</li>
         </ul>
         <ul class="list">
-          <li><strong>Space</strong>: Attack</li>
-          <li><strong>E</strong>: Open Doors</li>
-          <li><strong>C</strong>: Camara</li>
-          <li><strong>M</strong>: IA Mode On/Off</li>
+          <li><strong>Space</strong>: Atacar</li>
+          <li><strong>E</strong>: Obrir portes</li>
+          <li><strong>C</strong>: Càmera</li>
+          <li><strong>M</strong>: Mode IA</li>
         </ul>
       </div>
     </div>
@@ -235,8 +239,8 @@ z-index: 10;
               <canvas id="canvas" width="400" height="400" style="max-width: 100%; opacity: 1;"></canvas>
       </div>
     </div>
-    
-    <!-- <button onclick="toggleForm();">FeedBack</button> -->
+
+    <button onclick="toggleForm();"><h3>FeedBack</h3></button>
      <canvas id="otrocanvas" width="48" height="48" style="opacity: 0;"></canvas>
 
 
@@ -285,8 +289,6 @@ z-index: 10;
   <script src="./classes/Monsters/bot.js"></script>
   <script src="./classes/Player.js"></script>
 
-  <script src="./js/index.js"></script>
-  <script src="./js/eventListeners.js"></script>
 
   <!-- Feedback Form -->
   <script>
@@ -299,7 +301,22 @@ z-index: 10;
       }
     }
   </script>
+<!-- IA Mode -->
+  <script>
+    const IAbox = document.querySelector('.IAMode');
+    let IAisOn = false;
 
+    function toggleIAMode() {
+      if (IAisOn) {
+        IAisOn = false;
+        IAbox.style.background = 'rgba(255, 0, 0, 0.5)';
+      } else {
+        IAisOn = true;
+        IAbox.style.background = 'rgba(0, 255, 0, 0.5)';
+      }
+    }
+
+  </script>
 <!-- Controls -->
   <script>
     const Mbox = document.querySelector('.Mbox');
@@ -340,6 +357,21 @@ z-index: 10;
     document.querySelector('.controls-title').style.cursor = 'pointer';
 
   </script>
+<!-- Indicador de nivell -->
+  <script>
+    const levelIndicator = document.querySelector('.Level');
+    const levelsNames = ['Nivell Neutral', 'Nivell Tristeza', 'Nivell Feliç', 'Nivell Surpresa', 'Nivell Enfadat']
+
+    function updateLevelIndicator(level) {
+      levelIndicator.innerHTML = `<h2> ${levelsNames[level - 1] || 'Nivell Desconegut'} </h2>`;
+    }
+
+    // Exemple d'ús: Actualitza l'indicador al nivell 1
+    updateLevelIndicator(1);
+  </script>
+
+  <script src="./js/index.js"></script>
+  <script src="./js/eventListeners.js"></script>
 
 </body>
 </html>
