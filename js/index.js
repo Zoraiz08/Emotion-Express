@@ -631,17 +631,22 @@ function animate(backgroundCanvas) {
   }
 
   // --- finish level--> next lvl
-  if(monsters.length === 0 && 
-      player.x + player.width >= door.x &&
+  // Comprobar si el jugador está tocando la puerta
+  if(player.x + player.width >= door.x &&
       player.x <= door.x + door.width &&
       player.y + player.height >= door.y &&
       player.y <= door.y + door.height && keys.e.pressed && !door.open){
 
-          door.finishLevel()
-          player.img.src = 'playerAssets/RUN/run_up.png'
-          player.velocity.x = 0
-          player.velocity.y = -30
-          player.x = (door.x + door.width / 2) - player.width /2
+    // Si aún hay monstruos, mostrar notificación
+    if(monsters.length > 0) {
+      showMonstersNotification()
+    } else {
+      // Si no hay monstruos, proceder al siguiente nivel
+      door.finishLevel()
+      player.img.src = 'playerAssets/RUN/run_up.png'
+      player.velocity.x = 0
+      player.velocity.y = -30
+      player.x = (door.x + door.width / 2) - player.width /2
 
           gsap.to(overlay, {
             opacity: 1,
@@ -695,12 +700,21 @@ function animate(backgroundCanvas) {
           })
 
           door.open = true
+    }
+  }
 
-
-
-
-
-      }
+// Función para mostrar la notificación de monstruos
+function showMonstersNotification() {
+  const notification = document.getElementById('monsters-notification')
+  
+  // Mostrar la notificación
+  notification.style.opacity = '1'
+  
+  // Ocultar la notificación después de 2 segundos
+  setTimeout(() => {
+    notification.style.opacity = '0'
+  }, 1500)
+}
 
 
   player.draw(c)    
