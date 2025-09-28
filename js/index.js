@@ -1,7 +1,6 @@
 const canvas = document.getElementById('gameCanvas')
 const c = canvas.getContext('2d')
-const dpr = 1 //window.devicePixelRatio || 1 --> problemes
-
+const dpr = 1
 let zoom = 2.5
 
 const MAPA_SCALE= dpr + zoom
@@ -638,7 +637,7 @@ function animate(backgroundCanvas) {
       player.y <= door.y + door.height && keys.e.pressed && !door.open){
 
     // Si aún hay monstruos, mostrar notificación
-    if(monsters.length > 0) {
+    if(monsters.length > 3) {
       showMonstersNotification()
     } else {
       // Si no hay monstruos, proceder al siguiente nivel
