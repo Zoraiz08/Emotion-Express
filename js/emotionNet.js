@@ -142,12 +142,14 @@ function setZoom(nuevoZoom) {
         const emociones = ['Angry', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise'];
         const emocion = emociones[maxIndex];
 
-        emotionCounter[maxIndex]++; // Incrementar el contador de la emoción detectada
+        // emotionAdding(emocion); // Incrementar el contador de la emoción detectada
 
-
+        emotionCounter[maxIndex] ++;
         console.log(emocion);
+
         console.log(emotionCounter);
         console.log("Emoción más frecuente hasta ahora: " + maxEmotion());
+        chengeBorderColor(emocion);
 
 
         // Limpieza de tensores para liberar memoria
@@ -237,7 +239,6 @@ function maxEmotion() {
 
 function mostrarOcultarCamara() {
   const camara = document.getElementsByClassName("camara")[0];
-  if (!IAmodeActive) return; // Si el modo IA está desactivado, no hacer nada
     if (camara.style.opacity === "0") {
         camara.style.opacity = "1";
     } else {
@@ -248,3 +249,40 @@ function mostrarOcultarCamara() {
 function IAmode() {
   IAmodeActive = !IAmodeActive;
 }
+
+function chengeBorderColor(emocion) {
+  const borderElement = document.getElementById("canvas");
+  const colorMap = {
+      'Angry': 'red',
+      'Fear': 'purple',
+      'Happy': 'yellow',
+      'Neutral': 'gray',
+      'Sad': 'blue',
+      'Surprise': 'orange'
+  };
+  borderElement.style.borderColor = colorMap[emocion] || 'black';
+}
+
+// function emotionAdding(emocion){
+//   switch(emocion) {
+//     case 'Angry':
+//       emotionCounter[0] = emotionCounter[0] + 30;
+//       break;
+//     case 'Fear':
+//       emotionCounter[1] = emotionCounter[1] + 30;
+//       break;
+//     case 'Happy':
+//       emotionCounter[2] = emotionCounter[2] + 10;
+//       break;  
+//     case 'Neutral':
+//       emotionCounter[3] = emotionCounter[3] + 1;
+//       break;
+//     case 'Sad':
+//       emotionCounter[4] = emotionCounter[4] + 20;
+//       break; 
+//     case 'Surprise':
+//       emotionCounter[5] = emotionCounter[5] + 20;
+//       break; 
+//   }
+
+// }

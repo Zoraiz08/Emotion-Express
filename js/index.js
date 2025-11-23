@@ -637,7 +637,7 @@ function animate(backgroundCanvas) {
       player.y <= door.y + door.height && keys.e.pressed && !door.open){
 
     // Si aún hay monstruos, mostrar notificación
-    if(monsters.length > 3) {
+    if(monsters.length > 3) { // PARCHE
       showMonstersNotification()
     } else {
       // Si no hay monstruos, proceder al siguiente nivel

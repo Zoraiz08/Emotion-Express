@@ -6,3 +6,5 @@ const loadImage = (src) => {
     img.src = src
   })
 }
+
+
