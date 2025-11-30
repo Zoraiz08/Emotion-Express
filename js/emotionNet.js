@@ -4,6 +4,8 @@ var canvasEmotion = document.getElementById("canvas");
 var otrocanvas = document.getElementById("otrocanvas");
 var ctx = canvasEmotion.getContext("2d");
 
+var resultadoDiv = document.getElementById("lista_emocions");
+
 var currentStream = null;
 var facingMode = "user";
 
@@ -14,7 +16,7 @@ let emotionCounter = [0, 0, 0, 0, 0, 0]; // Contador para cada emoción
 
 // Variable global para el nivel de zoom (1 = normal, >1 = acercar)
 
-var zoomLevel = 2.2; // Puedes cambiar este valor para ajustar el zoom
+var zoomLevel = 2; // Puedes cambiar este valor para ajustar el zoom
 
 // Función para cambiar el nivel de zoom
 function setZoom(nuevoZoom) {
@@ -23,7 +25,7 @@ function setZoom(nuevoZoom) {
 
 (async() => {
     console.log("Cargando modelo...");
-    modelo = await tf.loadGraphModel("modelo/model.json");
+    modelo = await tf.loadGraphModel("modelo_max/model.json");
     console.log("Modelo cargado");
 })();
 
@@ -106,7 +108,7 @@ function setZoom(nuevoZoom) {
       if (modelo != null) {
         resample_single(canvasEmotion, 48, 48, otrocanvas);
 
-        //Hacer la predicción
+        //Hacer la predicciónb
         var ctx2 = otrocanvas.getContext("2d");
         var imgData = ctx2.getImageData(0,0, 48, 48);
 
@@ -151,6 +153,8 @@ function setZoom(nuevoZoom) {
         console.log("Emoción más frecuente hasta ahora: " + maxEmotion());
         chengeBorderColor(emocion);
 
+        // Mostrar resultados en el div
+        resultadoDiv.innerHTML = `[ ${emotionCounter} ]`;
 
         // Limpieza de tensores para liberar memoria
         tf.dispose([inputTensor, resultado]);
@@ -239,16 +243,16 @@ function maxEmotion() {
 
 function mostrarOcultarCamara() {
   const camara = document.getElementsByClassName("camara")[0];
+  const llista_emocions = document.getElementsByClassName("camara2")[0];
     if (camara.style.opacity === "0") {
         camara.style.opacity = "1";
+        llista_emocions.style.opacity = "1";
     } else {
         camara.style.opacity = "0";
+        llista_emocions.style.opacity = "0";
     }
 }
 
-function IAmode() {
-  IAmodeActive = !IAmodeActive;
-}
 
 function chengeBorderColor(emocion) {
   const borderElement = document.getElementById("canvas");

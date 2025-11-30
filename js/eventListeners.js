@@ -42,7 +42,6 @@ window.addEventListener('keydown', (event) => {
       mostrarOcultarCamara();
       break
     case 'm':
-      IAmode();
       toggleIAMode();
       break
     }
