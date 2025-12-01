@@ -10,7 +10,7 @@ var currentStream = null;
 var facingMode = "user";
 
 let modelo = null;
-let IAmodeActive = false; // Variable para activar/desactivar el modo IA
+let IAmodeActive = true; // Variable para activar/desactivar el modo IA
 let emotionCounter = [0, 0, 0, 0, 0, 0]; // Contador para cada emoción
 
 

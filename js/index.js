@@ -674,7 +674,7 @@ function animate(backgroundCanvas) {
                   default:
                     level = 1
                   break
-                  // FALTA ACABAR DE CONCRETAR
+
               }
               updateLevelIndicator(level)
             } else {
